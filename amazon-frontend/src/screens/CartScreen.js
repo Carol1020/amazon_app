@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../actions/cartActions';
+import { Link } from 'react-router-dom';
 
 function CartScreen(props) {
 
@@ -40,7 +41,9 @@ function CartScreen(props) {
               </div>
               <div className="cart-name">
                 <div>
-                  {item.name}
+                  <Link to={"/product/" + item.product}>
+                    {item.name}
+                  </Link>
                 </div>
                 <div>
                   Qty: <select>
