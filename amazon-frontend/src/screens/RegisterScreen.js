@@ -34,24 +34,24 @@ function RegisterScreen (props) {
             {error && <div>{error}</div>}
           </li>
           <li>
-            <label for="name">
+            <label htmlFor="name">
               Name
             </label>
             <input type="name" name="name" id="name" onChange={(e) => setEmail(e.target.value)}></input>
           </li>
           <li>
-            <label for="email">
+            <label htmlFor="email">
               Email
             </label>
             <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)}></input>
           </li>
           <li>
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" onChange={(e)=>setPassword(e.target.value)}>
             </input>
           </li>
           <li>
-            <label for="rePassword">Password Confirmation</label>
+            <label htmlFor="rePassword">Password Confirmation</label>
             <input type="rePassword" id="rePassword" name="rePassword" onChange={(e)=>setPassword(e.target.value)}>
             </input>
           </li>

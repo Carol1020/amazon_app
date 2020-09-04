@@ -23,12 +23,14 @@ router.post('/signin', async(req, res) => {
 })
 
 router.post('/register', async(req, res) => {
-  const user = newUser({
+  const user = new User({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   });
-  const newUser await user.save();
+  
+  const newUser = await user.save();
+
   if (newUser) {
     res.send({
       _id: newUser.id,
@@ -50,7 +52,6 @@ router.get("/createadmin", async (req, res) => {
       password: '1234',
       isAdmin: true,
     });
-
     const newUser = await user.save();
     res.send(newUser);
   } catch (error) {
