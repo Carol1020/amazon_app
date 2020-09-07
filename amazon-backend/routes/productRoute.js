@@ -26,4 +26,24 @@ router.post("/", async(req, res) => {
   } return res.status(500).send({message: 'Error in Creating Product.'})
 })
 
+router.put("/:id", async(req, res) => {
+  const productId = req.params.id;
+  const product = await Product.findOne({_id: productId});
+  if (product) {
+    product.name: req.body.name;
+    product.price: req.body.price;
+    product.image: req.body.image;
+    product.brand: req.body.brand;
+    product.category: req.body.category;
+    product.countInStock: req.body.countInStock;
+    product.description: req.body.description;
+    product.rating: req.body.rating;
+    product.numReviews: req.body.numReviews;
+    const updatedProduct = await product.save();
+    if (updatedProduct) {
+      return res.status(200).send({ message:'Product Updated', data: newProduct });
+    } return res.status(500).send({message: 'Error in Updating Product.'})
+  });
+});
+
 export default router;
