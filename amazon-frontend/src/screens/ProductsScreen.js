@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { signin } from '../actions/userActions';
-import { saveProduct, listProducts } from '../actions/productActions';
+import { saveProduct, listProducts, deleteProduct } from '../actions/productActions';
 
 function ProductsScreen (props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,6 +19,8 @@ function ProductsScreen (props) {
   const { loading, products, error} = productList;
   const productSave = useSelector(state => state.productSave);
   const { loading: loadingSave, success: successSave, error: errorSave }= productSave;
+  const productDelete = useSelector(state => state.productDelete);
+  const { loading: loadingDelete, success: successDelete, error: errorDelete }= productDelete;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function ProductsScreen (props) {
     }
     dispatch(listProducts());
     return () => {}
-  }, [successSave]);
+  }, [successSave, successDelete]);
 
   const openModal = (product) => {
     setModalVisible(true);
@@ -47,12 +49,16 @@ function ProductsScreen (props) {
       _id: id,
       name, price, image, brand, category, countInStock, description}));
   }
+  const deleteHandler = (product) => {
+    dispatch(deleteProduct(product._id));
+  }
+
   return (
   <div className="content content-margined">
     <div className="product-header">
-      <h3>Product</h3>
+      <h3>Products</h3>
       {/* create product button */}
-      <button onClick={() => openModal({})}>Create Product</button>
+      <button className="button primary" onClick={() => openModal({})}>Create Product</button>
     </div>
     {/* Create Product Form */}
     {modalVisible &&
@@ -114,7 +120,7 @@ function ProductsScreen (props) {
     }
     {/* Product List Table */}
     <div className="product-list">
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -126,20 +132,26 @@ function ProductsScreen (props) {
           </tr>
         </thead>
         <tbody>
-          {products.map(product =>
-            <tr>
-              <td>{product._id}</td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
-              <td>{product.category}</td>
-              <td>{product.brand}</td>
-              <td>{product.action}</td>
-              <td>
-                <button onClick={() => openModal(product)}>Edit</button>
-                <button>Delete</button>
-              </td>
-            </tr>
-          )}
+          {products.map((product) => (
+             <tr key={product._id}>
+               <td>{product._id}</td>
+               <td>{product.name}</td>
+               <td>{product.price}</td>
+               <td>{product.category}</td>
+               <td>{product.brand}</td>
+               <td>
+                 <button className="button" onClick={() => openModal(product)}>
+                   Edit
+                 </button>{' '}
+                 <button
+                   className="button"
+                   onClick={() => deleteHandler(product)}
+                 >
+                   Delete
+                 </button>
+               </td>
+             </tr>
+           ))}
         </tbody>
       </table>
     </div>

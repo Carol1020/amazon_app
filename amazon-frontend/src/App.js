@@ -7,6 +7,9 @@ import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import './App.css';
 
 function App() {
@@ -43,16 +46,19 @@ function App() {
           <button className="sidebar-close-button" onClick={closeMenu}>x</button>
           <ul>
             <li>
-              <a href="index.html">Pants</a>
+              <Link to="/category/Pants">Pants</Link>
             </li>
             <li>
-              <a href="index.html">Shirts</a>
+              <Link to="/category/Shirts">Shirts</Link>
             </li>
           </ul>
         </aside>
         <main className="main">
           <div className="content">
             <Route path="/products" component={ProductsScreen} />
+            <Route path="/placeorder" component={PlaceOrderScreen} />
+            <Route path="/payment" component={PaymentScreen} />
+            <Route path="/shipping" component={ShippingScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/product/:id" component={ProductScreen} />
